@@ -1,17 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-type userDataObj = { day: number; event: string };
-type UsersData = { [key: string]: userDataObj[] };
+import { firstStateType } from "./types/firstSliceTypes";
 
-export interface firstState {
-  auth: boolean;
-  isAdmin: boolean | null;
-  username: string;
-  users: UsersData[];
-  readyUser: userDataObj[];
-}
-
-const initialState: firstState = {
+const initialState: firstStateType = {
   auth: false,
   isAdmin: null,
   username: "",

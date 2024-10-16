@@ -3,7 +3,7 @@ import type { FormProps } from "antd";
 import styles from "./styles/LoginStyle.module.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { authTrue } from "../../redux-store/slices/firstSlice";
+import { authTrue } from "../../redux-store/slices/firstSlice/firstSlice";
 import { useNavigate } from "react-router-dom";
 type FieldType = {
   username: string;
@@ -38,7 +38,7 @@ const Login = () => {
         message.error("USER NOT FOUND");
       }
     } catch (e) {
-      message.error('backend fail');
+      message.error("backend fail");
     }
   };
 
