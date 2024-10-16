@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "username": "admin",
+      "password": "123",
+      "id": "d995",
+      "admin_access": true
+    },
+    {
+      "username": "dan",
+      "password": "123",
+      "id": "d573",
+      "admin_access": false
+    },
+    {
+      "username": "nikita",
+      "password": "123",
+      "id": "ae65",
+      "admin_access": false
+    }
+  ]
+}
