@@ -1,0 +1,20 @@
+.flex {
+  display: flex;
+  div {
+    div {
+      all: unset;
+      display: block;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      nav {
+        margin-top: 5px;
+        border: 1px solid #000;
+        div {
+          
+        }
+      }
+    }
+    margin: 0 10px;
+    width: 300px;
+  }
+}
