@@ -44,6 +44,7 @@ export const firstSlice = createSlice({
         state.readyUser.push({
           nikita: [
             { day: 3, event: "работаешь в выходной, никитос" },
+            { day: 3, event: "РАБОТАЙ НИКИТОС" },
             { day: 6, event: "отдыхай" },
             { day: 7, event: "работай" },
           ],
