@@ -1,27 +1,35 @@
 import React from "react";
-import { Button, Modal } from "antd";
+import { Button, Input, Modal, Form } from "antd";
 import styles from "./UserEventStyles.module.scss";
 import { Select } from "antd";
-const AddUserEvent = () => {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  
-  const showModal = () => {
-    setIsModalOpen(true);
+import { formAntdHook } from "./isAdminUsers/model/addUserHook";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux-store/store";
+import { DaysArray } from "./isAdminUsers/EventAdmin";
+type OptionsType = { value: string | number; label: string | number };
+type FieldType = {
+  username: string;
+  password: string;
+};
+const AddUserEvent = ({ days }: { days: DaysArray }) => {
+  const { isModalOpen, showModal, handleOk, handleCancel, onChange, onSearch } =
+    formAntdHook();
+  const daysOptions: OptionsType[] = [];
+  days.map(function (el) {
+    let num = el.day;
+    return daysOptions.push({ label: num, value: num });
+  });
+  const options: OptionsType[] = [];
+  const users = useSelector((state: RootState) => state.firstSlice.users);
+  users.map(function (el) {
+    const key = Object.keys(el)[0];
+    options.push({ value: key, label: key });
+  });
+  const selectedDay = (value: string) => {
+    console.log(`selected day ${value}`);
   };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
-  const onSearch = (value: string) => {
-    console.log("search:", value);
+  const handleInputTask = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(`value ${e.target.value}`);
   };
   return (
     <div className={styles.forCenter}>
@@ -30,34 +38,39 @@ const AddUserEvent = () => {
           user event editor
         </Button>
         <Modal
-          title="Basic Modal"
+          title="User adder"
           open={isModalOpen}
           onOk={handleOk}
-          okText={'Add'}
+          okText={"Add"}
           onCancel={handleCancel}
         >
+          <Form>
+            <Form.Item>
+              
+            </Form.Item>
+          </Form>
           <Select
             showSearch
             placeholder="Select a person"
             optionFilterProp="label"
             onChange={onChange}
             onSearch={onSearch}
-            options={[
-              {
-                value: "jack",
-                label: "Jack",
-              },
-              {
-                value: "lucy",
-                label: "Lucy",
-              },
-              {
-                value: "tom",
-                label: "Tom",
-              },
-            ]}
+            options={options}
+            style={{ width: 150, marginBottom: 10 }}
           />
-          <p>Some contents...</p>
+
+          <br />
+          <Select
+            style={{ width: 150, marginBottom: 10 }}
+            onChange={selectedDay}
+            placeholder={"Select a day"}
+            options={daysOptions}
+          />
+          <br />
+          <Input
+            placeholder="Write a task"
+            onChange={(e) => handleInputTask(e)}
+          />
         </Modal>
       </div>
     </div>

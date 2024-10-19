@@ -15,7 +15,7 @@ type DayData = {
   day: number;
   users: UserEvents[];
 };
-type DaysArray = DayData[];
+export type DaysArray = DayData[];
 const EventAdmin = () => {
   const elems: JSX.Element[] = [];
   const users: UsersData[] = useSelector(
@@ -25,13 +25,15 @@ const EventAdmin = () => {
   transformedData.map(function (el) {
     elems.push(
       <div key={Math.random()}>
-        <span>{el.day}</span>
-        <div>
+        <span key={Math.random()}>{el.day}</span>
+        <div key={Math.random()}>
           {Object.values(el.users).map(function (userarr) {
             let i = 0;
             return (
               <>
-                <span>tasks for {Object.keys(userarr)}</span>
+                <span key={Math.random()}>
+                  tasks for {Object.keys(userarr)}
+                </span>
                 <nav key={Math.random()}>
                   {Object.values(userarr).map((us) =>
                     us.map(function (ev) {
@@ -55,7 +57,7 @@ const EventAdmin = () => {
   return (
     <div>
       <div className={styles.flex}>{elems}</div>
-      <AddUserEvent />
+      <AddUserEvent days={transformedData} />
     </div>
   );
 };

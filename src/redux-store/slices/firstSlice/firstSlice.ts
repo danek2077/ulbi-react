@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { UsersData, firstStateType } from "./types/TypesFirstSlice";
+import { firstStateType } from "./types/TypesFirstSlice";
 
 const initialState: firstStateType = {
   auth: false,
@@ -22,6 +22,7 @@ const initialState: firstStateType = {
   ],
   readyUser: [],
 };
+
 export const firstSlice = createSlice({
   name: "first",
   initialState,
@@ -35,20 +36,7 @@ export const firstSlice = createSlice({
       state.isAdmin = action.payload.access;
       state.username = action.payload.username;
       if (action.payload.access === true) {
-        state.readyUser.push({
-          dan: [
-            { day: 3, event: "данечка в 3 день отдыхаешь" },
-            { day: 5, event: "тут ты работаешь" },
-          ],
-        });
-        state.readyUser.push({
-          nikita: [
-            { day: 3, event: "работаешь в выходной, никитос" },
-            { day: 3, event: "РАБОТАЙ НИКИТОС" },
-            { day: 6, event: "отдыхай" },
-            { day: 7, event: "работай" },
-          ],
-        });
+        Object.values(state.users.map((el) => state.readyUser.push(el)));
       } else {
         state.users.map(function (el) {
           const key = Object.keys(el)[0];
