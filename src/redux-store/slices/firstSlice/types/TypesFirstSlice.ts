@@ -5,5 +5,4 @@ export interface firstStateType {
   isAdmin: boolean;
   username: string;
   users: UsersData[];
-  readyUser: userDataObj[] | UsersData[] | any;
 }

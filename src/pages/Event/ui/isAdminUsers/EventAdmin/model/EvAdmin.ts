@@ -1,4 +1,4 @@
-import { UsersData } from "../../../../../redux-store/slices/firstSlice/types/TypesFirstSlice";
+import { UsersData } from "../../../../../../redux-store/slices/firstSlice/types/TypesFirstSlice";
 
 export const transformUserData = (
   users: UsersData[]
