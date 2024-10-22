@@ -47,11 +47,11 @@ export const renderArrLogic = (users: UsersData[], isAdmin: boolean) => {
     const resultData: renderTypeAdmin = [
       {
         day: 1,
-        users: [{ dan: ["task", "ev2"] }, { nikitos: ["evnik1", "evnik2"] }],
+        users: [{ dan: ["rabota", "aboba"] }, { nikitos: ["boba", "biba"] }],
       },
       {
         day: 2,
-        users: [{ dan: ["task", "ev2"] }],
+        users: [{ dan: ["lopo", "mega"] }],
       },
       {
         day: 3,
@@ -74,15 +74,23 @@ export const renderArrLogic = (users: UsersData[], isAdmin: boolean) => {
         users: [],
       },
     ];
-    resultData.map((resEl) => {
+    resultData.map((renEl) => {
+      renEl.users.map((user) => {
+        Object.values(user)[0];
+      });
       elems.push(
         <div>
-          <span>{resEl.day} day</span>
-          {resEl.users.map((user, i) => (
-            <div>
-              <span>{Object.keys(user)[i]}</span>
-            </div>
-          ))}
+          <span>{renEl.day} day</span>
+          {renEl.users.map((user) => {
+            return (
+              <div>
+                <span>{Object.keys(user)[0]}</span>
+                {Object.values(user)[0].map((task,i) => (
+                  <div>{`task ${i+1}: ${task}`}</div>
+                ))}
+              </div>
+            );
+          })}
         </div>
       );
     });

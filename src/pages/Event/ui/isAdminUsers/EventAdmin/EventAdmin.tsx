@@ -13,21 +13,7 @@ const EventAdmin = () => {
 
   return (
     <div className={styles.flex}>
-      <div>
-        <span>day 1</span>
-        <div>
-          <div>
-            <span>tasks for dan</span>
-            <div>task 1: work hard</div>
-            <div>task 2: slow work</div>
-          </div>
-          <div>
-            <span>tasks for nikitos</span>
-            <div>task 1: work hard</div>
-            <div>task 2: slow work</div>
-          </div>
-        </div>
-      </div>
+      {elems}
     </div>
   );
 };
