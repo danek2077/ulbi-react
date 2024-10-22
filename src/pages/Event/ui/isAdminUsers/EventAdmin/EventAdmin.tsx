@@ -4,55 +4,30 @@ import styles from "./evAdmin.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../redux-store/store";
 import { UsersData } from "../../../../../redux-store/slices/firstSlice/types/TypesFirstSlice";
-import { transformUserData } from "./model/EvAdmin";
-type Event = {
-  event: string;
-};
-type UserEvents = {
-  [username: string]: Event[];
-};
-type DayData = {
-  day: number;
-  users: UserEvents[];
-};
-export type DaysArray = DayData[] | any;
-const EventAdmin = () => {
-  const elems: JSX.Element[] = [];
+import { renderArrLogic } from "../../feature/renderArrLogic";
 
-  // elems.push(
-  //   <div key={Math.random()}>
-  //     <span key={Math.random()}>{el.day}</span>
-  //     <div key={Math.random()}>
-  //       {Object.values(el.users).map(function (userarr) {
-  //         let i = 0;
-  //         return (
-  //           <>
-  //             <span key={Math.random()}>
-  //               tasks for {Object.keys(userarr)}
-  //             </span>
-  //             <nav key={Math.random()}>
-  //               {Object.values(userarr).map((us) =>
-  //                 us.map(function (ev) {
-  //                   i++;
-  //                   return (
-  //                     <div key={Math.random()}>
-  //                       task {i}: {ev.event}
-  //                     </div>
-  //                   );
-  //                 })
-  //               )}
-  //             </nav>
-  //           </>
-  //         );
-  //       })}
-  //     </div>
-  //   </div>
-  // );
+const EventAdmin = () => {
+  const users = useSelector((state: RootState) => state.firstSlice.users);
+  const isAdmin = useSelector((state: RootState) => state.firstSlice.isAdmin);
+  const { elems } = renderArrLogic(users, isAdmin);
 
   return (
-    <div>
-      <div className={styles.flex}>{elems}</div>
-      <AddUserEvent days={"s"} />
+    <div className={styles.flex}>
+      <div>
+        <span>day 1</span>
+        <div>
+          <div>
+            <span>tasks for dan</span>
+            <div>task 1: work hard</div>
+            <div>task 2: slow work</div>
+          </div>
+          <div>
+            <span>tasks for nikitos</span>
+            <div>task 1: work hard</div>
+            <div>task 2: slow work</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
