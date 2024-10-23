@@ -39,26 +39,31 @@ export const renderArrLogic = (users: UsersData[], isAdmin: boolean) => {
     });
   }
   if (isAdmin) {
-    let for_render: renderTypeAdmin = [];
-    for (let i = 1; i < 8; i++) {
-      let arrUsers: { [key: string]: string[] }[] = [];
-      users.forEach((user) => {
-        let key = Object.keys(user)[0];
-        let obj: { [key: string]: string[] } = {};
-        user[key].forEach((el) => {
-          if (el.day === i) {
-            if (!obj[key]) {
-              obj[key] = [];
-            }
-            obj[key].push(el.event);
+    let for_render: renderTypeAdmin = Array.from({ length: 7 }, (_, i) => ({
+      day: i + 1,
+      users: [],
+    }));
+    users.forEach((user) => {
+      const username = Object.keys(user)[0];
+      const tasks = Object.values(user)[0];
+      tasks.forEach((task) => {
+        let day_obj = for_render.find((day) => day.day === task.day);
+        if (day_obj) {
+          const xzkak = for_render[day_obj.day - 1].users.find(
+            (u) => Object.keys(u)[0] === username
+          );
+          if (xzkak === undefined) {
+            for_render[day_obj.day - 1].users.push({ [username]: [] });
           }
-        });
-        if (Object.keys(obj)[0] !== undefined) {
-          arrUsers.push(obj);
+          const find_xz = for_render[day_obj.day - 1].users.find(
+            (u) => Object.keys(u)[0] === username
+          );
+          if (find_xz) {
+            find_xz[username].push(task.event);
+          }
         }
       });
-      for_render.push({ day: i, users: arrUsers });
-    }
+    });
     // const resultData: renderTypeAdmin = [
     //   {
     //     day: 1,
