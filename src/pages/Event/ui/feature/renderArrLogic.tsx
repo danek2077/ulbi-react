@@ -3,7 +3,34 @@ import { UsersData } from "../../../../redux-store/slices/firstSlice/types/Types
 import { v4 as uuidv4 } from "uuid";
 import { RootState } from "../../../../redux-store/store";
 type renderTypeGuest = { day: number; events: string[] }[];
-type renderTypeAdmin = { day: number; users: { [key: string]: string[] }[] }[];
+export type renderTypeAdmin = {
+  day: number;
+  users: { [key: string]: string[] }[];
+}[];
+export const transformed_data_admin = (users: UsersData[]) => {
+  let for_render: renderTypeAdmin = Array.from({ length: 7 }, (_, i) => ({
+    day: i + 1,
+    users: [],
+  }));
+  users.forEach((user) => {
+    const username = Object.keys(user)[0];
+    const tasks = Object.values(user)[0];
+    tasks.forEach((task) => {
+      let day_obj = for_render.find((day) => day.day === task.day);
+      if (day_obj) {
+        let user_obj = day_obj.users.find(
+          (u) => Object.keys(u)[0] === username
+        );
+        if (!user_obj) {
+          user_obj = { [username]: [] };
+          day_obj.users.push(user_obj);
+        }
+        user_obj[username].push(task.event);
+      }
+    });
+  });
+  return { for_render };
+};
 export const renderArrLogic = (users: UsersData[], isAdmin: boolean) => {
   let elems: JSX.Element[] = [];
   if (!isAdmin) {
@@ -39,31 +66,34 @@ export const renderArrLogic = (users: UsersData[], isAdmin: boolean) => {
     });
   }
   if (isAdmin) {
-    let for_render: renderTypeAdmin = Array.from({ length: 7 }, (_, i) => ({
+    const users2 = [
+      {
+        username: "dan",
+        day: 3,
+        event: "Отдых в третий день, Дан, не забывай про важное",
+      },
+      { username: "dan", day: 5, event: "Рабочий день начинается, будь готов" },
+      { username: "nikita", day: 3, event: "Третий день: внеплановая работа" },
+      { username: "nikita", day: 6, event: "Заслуженный выходной" },
+    ];
+    const for_render: renderTypeAdmin = Array.from({ length: 7 }, (_, i) => ({
       day: i + 1,
       users: [],
     }));
-    users.forEach((user) => {
-      const username = Object.keys(user)[0];
-      const tasks = Object.values(user)[0];
-      tasks.forEach((task) => {
-        let day_obj = for_render.find((day) => day.day === task.day);
-        if (day_obj) {
-          const xzkak = for_render[day_obj.day - 1].users.find(
-            (u) => Object.keys(u)[0] === username
-          );
-          if (xzkak === undefined) {
-            for_render[day_obj.day - 1].users.push({ [username]: [] });
-          }
-          const find_xz = for_render[day_obj.day - 1].users.find(
-            (u) => Object.keys(u)[0] === username
-          );
-          if (find_xz) {
-            find_xz[username].push(task.event);
-          }
+    users2.forEach((user2) => {
+      const day_found = for_render.find((u) => u.day === user2.day);
+      if (day_found) {
+        let user_find = day_found.users.find(
+          (u) => Object.keys(u)[0] === user2.username
+        );
+        if (!user_find) {
+          user_find = { [user2.username]: [] };
+          day_found.users.push(user_find);
         }
-      });
+        user_find[user2.username].push(user2.event);
+      }
     });
+    console.log(for_render);
     // const resultData: renderTypeAdmin = [
     //   {
     //     day: 1,
@@ -94,6 +124,7 @@ export const renderArrLogic = (users: UsersData[], isAdmin: boolean) => {
     //     users: [],
     //   },
     // ];
+
     for_render.map((renEl) => {
       renEl.users.map((user) => {
         Object.values(user)[0];

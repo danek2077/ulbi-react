@@ -5,9 +5,9 @@ import { Select } from "antd";
 import { formAntdHook } from "./addUserHook";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../redux-store/store";
-import { DaysArray } from "../EventAdmin";
+import { renderTypeAdmin } from "../../../feature/renderArrLogic";
 type OptionsType = { value: string | number; label: string | number };
-const AddUserEvent = ({ days }: { days: DaysArray }) => {
+const AddUserEvent = ({ days }: { days: renderTypeAdmin }) => {
   const [form] = Form.useForm();
   const {
     isModalOpen,
