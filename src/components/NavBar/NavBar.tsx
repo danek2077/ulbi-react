@@ -5,7 +5,7 @@ import { Breadcrumb } from "antd";
 import { authFalse } from "../../redux-store/slices/firstSlice/firstSlice";
 import styles from "./styles/NavStyles.module.scss";
 const NavBar = () => {
-  const username = useSelector((state: RootState) => state.firstSlice.username);
+  const username = useSelector((state: RootState) => state.firstSlice.user_entry);
   const dispatch = useDispatch();
   return (
     <div className={styles.margin}>

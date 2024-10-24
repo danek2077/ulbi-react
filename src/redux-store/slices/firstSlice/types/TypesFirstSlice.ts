@@ -1,8 +1,7 @@
-export type userDataObj = { day: number; event: string };
-export type UsersData = { [key: string]: userDataObj[] };
+export type UsersData = { username: string; day: number; event: string };
 export interface firstStateType {
   auth: boolean;
   isAdmin: boolean;
-  username: string;
+  user_entry: string;
   users: UsersData[];
 }

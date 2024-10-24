@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { RootState } from "./redux-store/store";
 import NavBar from "./components/NavBar/NavBar";
 

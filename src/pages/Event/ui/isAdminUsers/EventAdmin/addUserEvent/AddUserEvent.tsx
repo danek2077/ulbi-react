@@ -1,35 +1,26 @@
-import React from "react";
 import { Button, Input, Modal, Form } from "antd";
 import styles from "./UserEventStyles.module.scss";
 import { Select } from "antd";
 import { formAntdHook } from "./addUserHook";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../redux-store/store";
-import { renderTypeAdmin } from "../../../feature/renderArrLogic";
+import { UsersData } from "../../../../../../redux-store/slices/firstSlice/types/TypesFirstSlice";
 type OptionsType = { value: string | number; label: string | number };
-const AddUserEvent = ({ days }: { days: renderTypeAdmin }) => {
+const AddUserEvent = ({ users }: { users: UsersData[] }) => {
   const [form] = Form.useForm();
-  const {
-    isModalOpen,
-    showModal,
-    handleOk,
-    handleCancel,
-    onChange,
-    selectedDay,
-    handleInputTask,
-  } = formAntdHook(form);
-  const daysOptions: OptionsType[] = [];
-  days.map(function (el: any) {
-    let num = el.day;
-    return daysOptions.push({ label: num, value: num });
-  });
-  const options: OptionsType[] = [];
-  const users = useSelector((state: RootState) => state.firstSlice.users);
-  users.map(function (el) {
-    const key = Object.keys(el)[0];
-    options.push({ value: key, label: key });
-  });
-
+  const { isModalOpen, showModal, handleOk, handleCancel } = formAntdHook(form);
+  const daysOptions: OptionsType[] = Array.from({ length: 7 }, (_, i) => ({
+    label: i + 1,
+    value: i + 1,
+  }));
+  const users_filtered = users.reduce((acc, cur) => {
+    if (!acc.includes(cur.username)) {
+      acc.push(cur.username);
+    }
+    return acc;
+  }, [] as string[]);
+  const options: OptionsType[] = Array.from(users_filtered, (el) => ({
+    value: el,
+    label: el,
+  }));
   return (
     <div className={styles.forCenter}>
       <div>
@@ -45,37 +36,32 @@ const AddUserEvent = ({ days }: { days: renderTypeAdmin }) => {
         >
           <Form form={form}>
             <Form.Item
-              name="userSelect"
+              name="username"
               rules={[{ required: true, message: "Please select a person!" }]}
             >
               <Select
                 showSearch
                 placeholder="Select a user"
                 optionFilterProp="label"
-                onChange={onChange}
                 options={options}
                 style={{ width: 150, marginBottom: 10 }}
               />
             </Form.Item>
             <Form.Item
-              name="daySelect"
+              name="day"
               rules={[{ required: true, message: "Please select a day!" }]}
             >
               <Select
                 style={{ width: 150, marginBottom: 10 }}
-                onChange={selectedDay}
                 placeholder={"Select a day"}
                 options={daysOptions}
               />
             </Form.Item>
             <Form.Item
-              name="taskWrite"
+              name="event"
               rules={[{ required: true, message: "Please write a task!" }]}
             >
-              <Input
-                placeholder="Write a task"
-                onChange={(e) => handleInputTask(e)}
-              />
+              <Input placeholder="Write a task" />
             </Form.Item>
           </Form>
         </Modal>

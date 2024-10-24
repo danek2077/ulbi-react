@@ -6,21 +6,21 @@ import { addUserObj } from "../../../pages/Event/ui/isAdminUsers/EventAdmin/addU
 const initialState: firstStateType = {
   auth: false,
   isAdmin: false,
-  username: "",
+  user_entry: "",
   users: [
     {
-      dan: [
-        { day: 2, event: "Отдых в третьей день, Дан, не забывай про важное" },
-        { day: 5, event: "Рабочий день начинается, будь готов" },
-        { day: 2, event: "Но, даже в отдыхе, держи руку на пульсе дел" },
-      ],
+      username: "dan",
+      day: 2,
+      event: "Отдых в третьей день, Дан, не забывай про важное",
     },
+    { username: "dan", day: 5, event: "Рабочий день начинается, будь готов" },
+    { username: "nikita", day: 2, event: "Третий день: внеплановая работа" },
     {
-      nikita: [
-        { day: 2, event: "Третий день: внеплановая работа" },
-        { day: 6, event: "Заслуженный выходной" },
-      ],
+      username: "dan",
+      day: 2,
+      event: "Но, даже в отдыхе, держи руку на пульсе дел",
     },
+    { username: "nikita", day: 6, event: "Заслуженный выходной" },
   ],
 };
 
@@ -34,22 +34,13 @@ export const firstSlice = createSlice({
     ) => {
       state.auth = true;
       state.isAdmin = action.payload.access;
-      state.username = action.payload.username;
+      state.user_entry = action.payload.username;
     },
     authFalse: (state) => {
       state.auth = false;
     },
     addUser: (state, action: PayloadAction<addUserObj>) => {
-      const addUserObj = action.payload;
-      state.users.map(function (el) {
-        const key = Object.keys(el)[0];
-        if (key === addUserObj.user_selected) {
-          el[key].push({
-            event: addUserObj.task_wrote,
-            day: addUserObj.day_selected,
-          });
-        }
-      });
+      state.users.push(action.payload);
     },
   },
 });
