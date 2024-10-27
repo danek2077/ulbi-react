@@ -3,16 +3,17 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../../../../redux-store/slices/firstSlice/firstSlice";
 import type { Dayjs } from "dayjs";
-
+import dayjs from "dayjs";
 export type addUserObj = {
   username: string;
   date: string;
   event: string;
 };
+
 export const formAntdHook = (form: FormInstance<any>) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [date, setDate] = React.useState("2024-10-27");
+  const [date, setDate] = React.useState(dayjs().format("YYYY-MM-DD"));
   const onSelect = (newValue: Dayjs) => {
     setDate(newValue.format("YYYY-MM-DD"));
   };

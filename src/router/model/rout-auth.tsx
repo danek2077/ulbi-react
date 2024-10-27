@@ -1,5 +1,3 @@
-import Login from "../../pages/Login/Login";
-import Event from "../../pages/Event/Event";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux-store/store";
 import { useNavigate } from "react-router-dom";

@@ -1,17 +1,15 @@
-import { Button, Input, Modal, Form, theme, Calendar } from "antd";
+import { Button, Input, Modal, Form,  Calendar } from "antd";
 import styles from "./UserEventStyles.module.scss";
 import { Select } from "antd";
 import { formAntdHook } from "./addUserHook";
 import { UsersData } from "../../../../../../redux-store/slices/firstSlice/types/TypesFirstSlice";
+
 type OptionsType = { value: string | number; label: string | number };
 
 const AddUserEvent = ({ users }: { users: UsersData[] }) => {
-
   const [form] = Form.useForm();
   const { isModalOpen, showModal, handleOk, handleCancel, onSelect } =
     formAntdHook(form);
-
-    
   const users_filtered = users.reduce((acc, cur) => {
     if (!acc.includes(cur.username)) {
       acc.push(cur.username);
