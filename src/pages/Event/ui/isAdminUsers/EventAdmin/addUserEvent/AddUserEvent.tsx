@@ -1,16 +1,17 @@
-import { Button, Input, Modal, Form } from "antd";
+import { Button, Input, Modal, Form, theme, Calendar } from "antd";
 import styles from "./UserEventStyles.module.scss";
 import { Select } from "antd";
 import { formAntdHook } from "./addUserHook";
 import { UsersData } from "../../../../../../redux-store/slices/firstSlice/types/TypesFirstSlice";
 type OptionsType = { value: string | number; label: string | number };
+
 const AddUserEvent = ({ users }: { users: UsersData[] }) => {
+
   const [form] = Form.useForm();
-  const { isModalOpen, showModal, handleOk, handleCancel } = formAntdHook(form);
-  const daysOptions: OptionsType[] = Array.from({ length: 7 }, (_, i) => ({
-    label: i + 1,
-    value: i + 1,
-  }));
+  const { isModalOpen, showModal, handleOk, handleCancel, onSelect } =
+    formAntdHook(form);
+
+    
   const users_filtered = users.reduce((acc, cur) => {
     if (!acc.includes(cur.username)) {
       acc.push(cur.username);
@@ -21,11 +22,12 @@ const AddUserEvent = ({ users }: { users: UsersData[] }) => {
     value: el,
     label: el,
   }));
+
   return (
     <div className={styles.forCenter}>
       <div>
         <Button type="primary" onClick={showModal}>
-          user event editor
+          add user event
         </Button>
         <Modal
           title="User adder"
@@ -47,15 +49,8 @@ const AddUserEvent = ({ users }: { users: UsersData[] }) => {
                 style={{ width: 150, marginBottom: 10 }}
               />
             </Form.Item>
-            <Form.Item
-              name="day"
-              rules={[{ required: true, message: "Please select a day!" }]}
-            >
-              <Select
-                style={{ width: 150, marginBottom: 10 }}
-                placeholder={"Select a day"}
-                options={daysOptions}
-              />
+            <Form.Item>
+              <Calendar fullscreen={false} onSelect={onSelect} />
             </Form.Item>
             <Form.Item
               name="event"

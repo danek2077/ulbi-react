@@ -2,14 +2,20 @@ import { FormInstance, message } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../../../../redux-store/slices/firstSlice/firstSlice";
+import type { Dayjs } from "dayjs";
+
 export type addUserObj = {
   username: string;
-  day: number;
+  date: string;
   event: string;
 };
 export const formAntdHook = (form: FormInstance<any>) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [date, setDate] = React.useState("2024-10-27");
+  const onSelect = (newValue: Dayjs) => {
+    setDate(newValue.format("YYYY-MM-DD"));
+  };
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -17,7 +23,7 @@ export const formAntdHook = (form: FormInstance<any>) => {
     try {
       await form.validateFields();
       const values = await form.getFieldsValue();
-      dispatch(addUser(values));
+      dispatch(addUser({ ...values, date: date }));
       setIsModalOpen(false);
       message.success("ПЕРЕМОГА");
       form.resetFields();
@@ -28,11 +34,11 @@ export const formAntdHook = (form: FormInstance<any>) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
   return {
     isModalOpen,
     showModal,
     handleOk,
     handleCancel,
+    onSelect,
   };
 };

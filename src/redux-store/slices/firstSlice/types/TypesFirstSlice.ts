@@ -1,4 +1,4 @@
-export type UsersData = { username: string; day: number; event: string };
+export type UsersData = { username: string; date: string; event: string };
 export interface firstStateType {
   auth: boolean;
   isAdmin: boolean;

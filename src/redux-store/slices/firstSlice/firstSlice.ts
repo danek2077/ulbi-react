@@ -10,17 +10,30 @@ const initialState: firstStateType = {
   users: [
     {
       username: "dan",
-      day: 2,
+      date: "2024-10-24",
       event: "Отдых в третьей день, Дан, не забывай про важное",
     },
-    { username: "dan", day: 5, event: "Рабочий день начинается, будь готов" },
-    { username: "nikita", day: 2, event: "Третий день: внеплановая работа" },
     {
       username: "dan",
-      day: 2,
+      date: "2024-10-20",
+      event: "Рабочий день начинается, будь готов",
+    },
+    {
+      username: "dan",
+      date: "2024-10-20",
+      event: "кончать работать, отдыхать",
+    },
+    {
+      username: "nikita",
+      date: "2024-10-20",
+      event: "Третий день: внеплановая работа",
+    },
+    {
+      username: "dan",
+      date: "2024-10-25",
       event: "Но, даже в отдыхе, держи руку на пульсе дел",
     },
-    { username: "nikita", day: 6, event: "Заслуженный выходной" },
+    { username: "nikita", date: "2024-10-17", event: "Заслуженный выходной" },
   ],
 };
 
